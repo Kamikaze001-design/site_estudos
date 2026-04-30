@@ -4,174 +4,824 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfólio: Segunda Guerra Mundial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos gerais */
+        :root {
+            --bg: #0d0d10;
+            --bg-elev: #16161c;
+            --bg-card: #1c1c24;
+            --line: #2a2a35;
+            --text: #e9e9ee;
+            --muted: #a8a8b3;
+            --accent: #b07cff;
+            --accent-strong: #9b4dca;
+            --accent-soft: rgba(155, 77, 202, 0.15);
+            --gold: #d4a857;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #121212; /* Fundo escuro */
-            color: #e0e0e0; /* Cor de texto clara */
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navegação */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(13, 13, 16, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line);
+        }
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+        nav .brand {
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: 1.05rem;
+            letter-spacing: 0.18em;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+        nav ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul a {
+            font-size: 0.92rem;
+            color: var(--muted);
+            text-decoration: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            transition: color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            background: none;
+        }
+        nav ul a:hover {
+            color: var(--accent);
+            background: none;
+            transform: none;
+        }
+        @media (max-width: 720px) {
+            nav ul { display: none; }
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 88vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Approaching_Omaha.jpg/1600px-Approaching_Omaha.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(60%) contrast(1.05) brightness(0.55);
+            transform: scale(1.05);
+            z-index: -2;
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at center, rgba(13,13,16,0) 0%, rgba(13,13,16,0.85) 70%, var(--bg) 100%),
+                linear-gradient(180deg, rgba(13,13,16,0.4) 0%, rgba(13,13,16,0.7) 100%);
+            z-index: -1;
+        }
+        .hero-content {
+            padding: 0 24px;
+            max-width: 880px;
+            animation: fadeUp 1.4s ease-out;
+        }
+        .hero .eyebrow {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            letter-spacing: 0.4em;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+        .hero h1 {
+            font-size: clamp(2.4rem, 6vw, 4.8rem);
+            line-height: 1.1;
+            margin: 0 0 18px;
+            color: #fff;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.6);
+        }
+        .hero h1 .accent {
+            color: var(--accent);
+            display: block;
+        }
+        .hero p {
+            font-size: clamp(1rem, 1.6vw, 1.2rem);
+            color: #d6d6df;
+            max-width: 640px;
+            margin: 0 auto 36px;
+        }
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.12);
+            padding-top: 28px;
+        }
+        .hero-meta div {
+            text-align: center;
+        }
+        .hero-meta .num {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .hero-meta .lbl {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--muted);
+        }
+
+        /* Botões */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            background: transparent;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px var(--accent);
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: var(--accent-strong);
+            border-color: var(--accent-strong);
+        }
+
+        /* Seções */
+        section.block {
+            padding: 100px 0;
+            position: relative;
+        }
+        section.block + section.block {
+            border-top: 1px solid var(--line);
+        }
+        .section-head {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 60px;
+        }
+        .section-head .kicker {
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.3em;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+        .section-head h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #fff;
+            margin: 0 0 18px;
+        }
+        .section-head p {
+            color: var(--muted);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        /* Introdução com imagem ao lado */
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        @media (max-width: 860px) { .split { grid-template-columns: 1fr; gap: 40px; } }
+        .split img {
+            width: 100%;
+            border-radius: 6px;
+            filter: grayscale(30%) contrast(1.05);
+            box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7);
+        }
+        .split p {
+            margin: 0 0 18px;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+        .split h3 {
+            color: var(--accent);
+            font-size: 1.6rem;
+            margin: 0 0 22px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, var(--accent-strong), transparent);
+            transform: translateX(-50%);
+        }
+        .tl-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px;
+        }
+        .tl-item:nth-child(odd) { left: 0; text-align: right; }
+        .tl-item:nth-child(even) { left: 50%; }
+        .tl-item::before {
+            content: "";
+            position: absolute;
+            top: 32px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--bg), 0 0 20px var(--accent);
+        }
+        .tl-item:nth-child(odd)::before { right: -8px; }
+        .tl-item:nth-child(even)::before { left: -8px; }
+        .tl-item .year {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.1em;
+        }
+        .tl-item h4 {
+            font-family: 'Cinzel', serif;
+            color: #fff;
+            margin: 0 0 10px;
+            font-size: 1.15rem;
+        }
+        .tl-item p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        @media (max-width: 720px) {
+            .timeline::before { left: 18px; }
+            .tl-item, .tl-item:nth-child(even) { width: 100%; left: 0; padding: 14px 14px 14px 50px; text-align: left; }
+            .tl-item::before, .tl-item:nth-child(odd)::before, .tl-item:nth-child(even)::before { left: 10px; right: auto; }
+        }
+
+        /* Cards de líderes */
+        .leaders {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 28px;
+        }
+        .leader {
+            background: var(--bg-card);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+        }
+        .leader:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+        }
+        .leader-photo {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            filter: grayscale(80%) contrast(1.1);
+            display: block;
+            transition: filter 0.4s ease;
+        }
+        .leader:hover .leader-photo { filter: grayscale(0%) contrast(1.05); }
+        .leader-body {
+            padding: 22px;
+        }
+        .leader-body .country {
+            font-size: 0.72rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            margin-bottom: 6px;
+        }
+        .leader-body h3 {
+            font-size: 1.15rem;
+            margin: 0 0 10px;
+            color: #fff;
+            letter-spacing: 0.04em;
+        }
+        .leader-body p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin: 0;
             line-height: 1.6;
         }
 
-        h1, h2, p {
-            margin: 0 20px;
+        /* Galeria */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 180px;
+            gap: 14px;
         }
-
-        /* Definindo a cor roxa para alguns elementos */
-        .roxo {
-            color: #9b4dca; /* Roxo claro */
-        }
-
-        /* Título principal */
-        header {
-            text-align: center;
-            padding: 50px;
-            background-color: #1f1f1f;
-        }
-
-        header h1 {
-            font-size: 3em;
-            color: #9b4dca;
-            text-transform: uppercase;
-            letter-spacing: 5px;
+        .gallery figure {
             margin: 0;
-            animation: fadeIn 2s ease-out; /* Animação suave de fade-in */
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            background: var(--bg-card);
         }
-
-        header p {
-            font-size: 1.2em;
-            color: #b0b0b0;
-            animation: fadeIn 3s ease-out;
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(40%) contrast(1.05);
+            transition: transform 0.6s ease, filter 0.6s ease;
         }
-
-        /* Seções de conteúdo */
-        section {
-            padding: 40px 20px;
+        .gallery figure:hover img {
+            transform: scale(1.06);
+            filter: grayscale(0%) contrast(1.05);
         }
-
-        section h2 {
-            text-align: center;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #9b4dca;
-            text-transform: uppercase;
-        }
-
-        section p {
-            font-size: 1.1em;
-            color: #e0e0e0;
-            margin: 20px 0;
-            line-height: 1.8;
-        }
-
-        /* Links e botões */
-        a {
-            text-decoration: none;
-            color: #9b4dca;
-            border: 2px solid #9b4dca;
-            padding: 10px 20px;
-            display: inline-block;
-            margin-top: 30px;
-            border-radius: 5px;
-            text-align: center;
-            transition: all 0.3s ease-in-out;
-            font-size: 1.2em;
-        }
-
-        a:hover {
-            background-color: #9b4dca;
+        .gallery figcaption {
+            position: absolute;
+            inset: auto 0 0 0;
+            padding: 14px 16px;
+            background: linear-gradient(180deg, transparent, rgba(0,0,0,0.85));
             color: #fff;
-            transform: scale(1.1); /* Animação de aumento ao passar o mouse */
+            font-size: 0.85rem;
+            transform: translateY(40%);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        .gallery figure:hover figcaption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .g1 { grid-column: span 6; grid-row: span 2; }
+        .g2 { grid-column: span 3; grid-row: span 1; }
+        .g3 { grid-column: span 3; grid-row: span 1; }
+        .g4 { grid-column: span 3; grid-row: span 1; }
+        .g5 { grid-column: span 3; grid-row: span 1; }
+        .g6 { grid-column: span 4; grid-row: span 2; }
+        .g7 { grid-column: span 4; grid-row: span 2; }
+        .g8 { grid-column: span 4; grid-row: span 2; }
+        @media (max-width: 860px) {
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+            .g1, .g2, .g3, .g4, .g5, .g6, .g7, .g8 { grid-column: span 1; grid-row: span 1; }
         }
 
-        /* Estilo para as imagens */
-        .image-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
+        /* Consequências */
+        .impacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+        .impact {
+            padding: 28px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            border-top: 3px solid var(--accent);
+        }
+        .impact .ico {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            display: grid;
+            place-items: center;
+            color: var(--accent);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .impact h3 {
+            font-size: 1.1rem;
+            margin: 0 0 12px;
+            color: #fff;
+        }
+        .impact p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin: 0;
         }
 
-        .image-container img {
-            max-width: 100%;
-            height: auto;
+        /* Citação */
+        .quote {
+            text-align: center;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        .quote blockquote {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            line-height: 1.45;
+            color: #fff;
+            margin: 0 0 24px;
+            font-style: italic;
+        }
+        .quote cite {
+            color: var(--gold);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-style: normal;
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 80px 24px;
+            background:
+                linear-gradient(rgba(13,13,16,0.85), rgba(13,13,16,0.95)),
+                url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Reichstag_flag.jpg/1600px-Reichstag_flag.jpg');
+            background-size: cover;
+            background-position: center;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease-in-out;
+            border: 1px solid var(--line);
         }
-
-        .image-container img:hover {
-            transform: scale(1.05); /* Animação suave ao passar o mouse */
+        .cta h2 {
+            color: #fff;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            margin: 0 0 14px;
+        }
+        .cta p {
+            color: var(--muted);
+            margin: 0 0 28px;
+            font-size: 1rem;
         }
 
         /* Rodapé */
         footer {
-            background-color: #1f1f1f;
-            padding: 20px;
+            background: var(--bg-elev);
+            padding: 50px 24px 30px;
             text-align: center;
-            color: #b0b0b0;
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+            margin-top: 60px;
         }
+        footer .brand {
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        footer small { font-size: 0.78rem; letter-spacing: 0.1em; }
 
         /* Animações */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Cabeçalho -->
-    <header>
-        <h1>Portfólio: Segunda Guerra Mundial</h1>
-        <p>Explorando os principais eventos, personagens e consequências desse conflito histórico.</p>
+    <nav>
+        <div class="container">
+            <div class="brand">II Guerra Mundial</div>
+            <ul>
+                <li><a href="#introducao">Introdução</a></li>
+                <li><a href="#linha-do-tempo">Linha do Tempo</a></li>
+                <li><a href="#lideres">Líderes</a></li>
+                <li><a href="#galeria">Galeria</a></li>
+                <li><a href="#legado">Legado</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="eyebrow">1939 — 1945</div>
+            <h1>O Conflito que <span class="accent">Redesenhou o Mundo</span></h1>
+            <p>Um portfólio histórico sobre a Segunda Guerra Mundial: as causas, as batalhas, os líderes e o legado de uma guerra que envolveu mais de 100 milhões de pessoas em mais de 30 nações.</p>
+            <a href="#introducao" class="btn btn-primary">Explorar a história</a>
+            <div class="hero-meta">
+                <div><div class="num">6</div><div class="lbl">Anos de conflito</div></div>
+                <div><div class="num">30+</div><div class="lbl">Nações envolvidas</div></div>
+                <div><div class="num">70 M</div><div class="lbl">Vítimas estimadas</div></div>
+                <div><div class="num">2</div><div class="lbl">Frentes principais</div></div>
+            </div>
+        </div>
     </header>
 
-    <!-- Seção 1: Introdução -->
-    <section>
-        <h2 class="roxo">Introdução ao Conflito</h2>
-        <p>A Segunda Guerra Mundial, que durou de 1939 a 1945, foi o conflito militar mais amplo da história, envolvendo quase todas as nações do mundo. O impacto desta guerra foi imensurável, alterando o curso da história mundial de forma permanente.</p>
-        <p>O confronto ocorreu em várias frentes, envolvendo batalhas em terra, no mar e no ar. A guerra teve profundas implicações para a política mundial e as relações internacionais.</p>
-    </section>
+    <main>
+        <section id="introducao" class="block">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="kicker">Capítulo I</div>
+                    <h2>Introdução ao Conflito</h2>
+                    <p>Da ascensão dos regimes totalitários à invasão da Polônia, entenda como o mundo foi arrastado para a guerra mais devastadora da história.</p>
+                </div>
 
-    <!-- Seção 2: Principais Personagens -->
-    <section>
-        <h2 class="roxo">Principais Personagens</h2>
-        <p>Entre os principais líderes envolvidos na Segunda Guerra Mundial estavam figuras como Adolf Hitler, Winston Churchill, Franklin D. Roosevelt, Joseph Stalin, entre outros. Cada um desempenhou um papel crucial na condução dos eventos e nas decisões que definiram o curso do conflito.</p>
-    </section>
+                <div class="split reveal">
+                    <div>
+                        <h3>Um mundo em ruínas após 1918</h3>
+                        <p>O Tratado de Versalhes, assinado ao fim da Primeira Guerra Mundial, impôs duras sanções à Alemanha e contribuiu para uma profunda crise econômica e política. Esse cenário, somado à Grande Depressão de 1929, criou o terreno fértil para a ascensão de regimes totalitários, como o nazismo na Alemanha, o fascismo na Itália e o militarismo no Japão.</p>
+                        <p>Em 1º de setembro de 1939, a invasão alemã da Polônia desencadeou oficialmente o conflito. Em poucos meses, a guerra se espalhou por toda a Europa, África, Ásia e Pacífico, envolvendo as principais potências do mundo divididas em dois grandes blocos: o Eixo e os Aliados.</p>
+                    </div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/The_USS_Arizona_%28BB-39%29_burning_after_the_Japanese_attack_on_Pearl_Harbor_-_NARA_195617_-_Edit.jpg/1280px-The_USS_Arizona_%28BB-39%29_burning_after_the_Japanese_attack_on_Pearl_Harbor_-_NARA_195617_-_Edit.jpg" alt="USS Arizona em chamas após o ataque a Pearl Harbor, 7 de dezembro de 1941">
+                </div>
+            </div>
+        </section>
 
-    <!-- Seção 3: Consequências e Legado -->
-    <section>
-        <h2 class="roxo">Consequências e Legado</h2>
-        <p>Após o fim da guerra, o mundo entrou em uma nova era. A Segunda Guerra Mundial resultou na criação da Organização das Nações Unidas (ONU), uma tentativa de evitar futuros conflitos globais. Além disso, o mundo foi dividido em duas superpotências principais: os Estados Unidos e a União Soviética, marcando o início da Guerra Fria.</p>
-    </section>
+        <section id="linha-do-tempo" class="block">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="kicker">Capítulo II</div>
+                    <h2>Linha do Tempo</h2>
+                    <p>Os marcos essenciais que definiram o curso da guerra, ano após ano.</p>
+                </div>
 
-    <!-- Seção 4: Imagem -->
-    <section>
-        <h2 class="roxo">Galeria de Imagens</h2>
-        <div class="image-container">
-            <img src="https://www.nationalgeographicbrasil.com/historia/2020/03/fotografia-segunda-guerra-mundial-iwo-jima-bandeira-americana-rosenthal" alt="Imagem histórica da Segunda Guerra Mundial">
-        </div>
-        <p>Uma das imagens mais icônicas da Segunda Guerra Mundial, capturando o espírito da época e a magnitude do conflito.</p>
-    </section>
+                <div class="timeline">
+                    <div class="tl-item reveal">
+                        <div class="year">1939</div>
+                        <h4>Invasão da Polônia</h4>
+                        <p>Em 1º de setembro, a Alemanha nazista invade a Polônia. Reino Unido e França declaram guerra dois dias depois.</p>
+                    </div>
+                    <div class="tl-item reveal">
+                        <div class="year">1940</div>
+                        <h4>Queda da França e Batalha da Grã-Bretanha</h4>
+                        <p>A blitzkrieg alemã domina a Europa Ocidental. A RAF resiste aos bombardeios da Luftwaffe nos céus britânicos.</p>
+                    </div>
+                    <div class="tl-item reveal">
+                        <div class="year">1941</div>
+                        <h4>Operação Barbarossa e Pearl Harbor</h4>
+                        <p>A Alemanha invade a União Soviética. O Japão ataca Pearl Harbor, levando os EUA à guerra.</p>
+                    </div>
+                    <div class="tl-item reveal">
+                        <div class="year">1942-43</div>
+                        <h4>Stalingrado e a virada</h4>
+                        <p>A vitória soviética em Stalingrado marca o ponto de inflexão na frente oriental. Aliados avançam no norte da África.</p>
+                    </div>
+                    <div class="tl-item reveal">
+                        <div class="year">1944</div>
+                        <h4>Dia D — Desembarque na Normandia</h4>
+                        <p>Em 6 de junho, mais de 156 mil tropas aliadas desembarcam na costa francesa, abrindo a frente ocidental contra a Alemanha.</p>
+                    </div>
+                    <div class="tl-item reveal">
+                        <div class="year">1945</div>
+                        <h4>Rendição e bombas atômicas</h4>
+                        <p>Berlim cai em maio. Em agosto, bombas atômicas em Hiroshima e Nagasaki forçam a rendição do Japão. Fim da guerra.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Botão para saber mais -->
-    <section>
-        <a href="#" class="roxo">Saiba Mais Sobre a Segunda Guerra</a>
-    </section>
+        <section id="lideres" class="block">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="kicker">Capítulo III</div>
+                    <h2>Os Líderes da Guerra</h2>
+                    <p>Figuras centrais cujas decisões moldaram cada frente de batalha e o destino de nações inteiras.</p>
+                </div>
 
-    <!-- Rodapé -->
+                <div class="leaders">
+                    <article class="leader reveal">
+                        <img class="leader-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Sir_Winston_Churchill_-_19086236946.jpg/800px-Sir_Winston_Churchill_-_19086236946.jpg" alt="Winston Churchill">
+                        <div class="leader-body">
+                            <div class="country">Reino Unido</div>
+                            <h3>Winston Churchill</h3>
+                            <p>Primeiro-ministro britânico que liderou a resistência aliada com discursos memoráveis e política de combate até a vitória.</p>
+                        </div>
+                    </article>
+
+                    <article class="leader reveal">
+                        <img class="leader-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/FDR_in_1933.jpg/800px-FDR_in_1933.jpg" alt="Franklin D. Roosevelt">
+                        <div class="leader-body">
+                            <div class="country">Estados Unidos</div>
+                            <h3>Franklin D. Roosevelt</h3>
+                            <p>Presidente americano que conduziu o esforço de guerra dos EUA e arquitetou a formação do bloco aliado.</p>
+                        </div>
+                    </article>
+
+                    <article class="leader reveal">
+                        <img class="leader-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/CroppedStalin1943.jpg/800px-CroppedStalin1943.jpg" alt="Josef Stalin">
+                        <div class="leader-body">
+                            <div class="country">União Soviética</div>
+                            <h3>Josef Stalin</h3>
+                            <p>Líder soviético responsável por mobilizar o Exército Vermelho na frente oriental, que sofreu as maiores baixas do conflito.</p>
+                        </div>
+                    </article>
+
+                    <article class="leader reveal">
+                        <img class="leader-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Charles_de_Gaulle-1961.jpg/800px-Charles_de_Gaulle-1961.jpg" alt="Charles de Gaulle">
+                        <div class="leader-body">
+                            <div class="country">França Livre</div>
+                            <h3>Charles de Gaulle</h3>
+                            <p>Líder da resistência francesa no exílio, símbolo da França Livre e arquiteto da reconstrução política do pós-guerra.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="block">
+            <div class="container">
+                <div class="quote reveal">
+                    <blockquote>“Nunca, no campo dos conflitos humanos, tantos deveram tanto a tão poucos.”</blockquote>
+                    <cite>— Winston Churchill, 1940</cite>
+                </div>
+            </div>
+        </section>
+
+        <section id="galeria" class="block">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="kicker">Capítulo IV</div>
+                    <h2>Galeria Histórica</h2>
+                    <p>Imagens que documentaram momentos decisivos do conflito — da brutalidade do front à esperança da libertação.</p>
+                </div>
+
+                <div class="gallery reveal">
+                    <figure class="g1">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/WW2_Iwo_Jima_flag_raising.jpg/1280px-WW2_Iwo_Jima_flag_raising.jpg" alt="Hasteamento da bandeira em Iwo Jima">
+                        <figcaption>Hasteamento da bandeira em Iwo Jima · 1945</figcaption>
+                    </figure>
+                    <figure class="g2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Yalta_Conference_%28Churchill%2C_Roosevelt%2C_Stalin%29_%28B%26W%29.jpg/1280px-Yalta_Conference_%28Churchill%2C_Roosevelt%2C_Stalin%29_%28B%26W%29.jpg" alt="Conferência de Yalta">
+                        <figcaption>Conferência de Yalta · 1945</figcaption>
+                    </figure>
+                    <figure class="g3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Nagasakibomb.jpg/800px-Nagasakibomb.jpg" alt="Cogumelo atômico em Nagasaki">
+                        <figcaption>Bomba atômica · Nagasaki, agosto de 1945</figcaption>
+                    </figure>
+                    <figure class="g4">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Reichstag_flag.jpg/1280px-Reichstag_flag.jpg" alt="Bandeira soviética sobre o Reichstag">
+                        <figcaption>Bandeira soviética sobre o Reichstag · Berlim, 1945</figcaption>
+                    </figure>
+                    <figure class="g5">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Into_the_Jaws_of_Death_23-0455M_edit.jpg/1280px-Into_the_Jaws_of_Death_23-0455M_edit.jpg" alt="Desembarque na Normandia">
+                        <figcaption>“Into the Jaws of Death” · Dia D, 1944</figcaption>
+                    </figure>
+                    <figure class="g6">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Bundesarchiv_Bild_183-S33882%2C_Adolf_Hitler_retouched.jpg/800px-Bundesarchiv_Bild_183-S33882%2C_Adolf_Hitler_retouched.jpg" alt="Adolf Hitler">
+                        <figcaption>Adolf Hitler · Líder do Terceiro Reich</figcaption>
+                    </figure>
+                    <figure class="g7">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/RIAN_archive_44732_Soviet_soldiers_attack_house.jpg/1280px-RIAN_archive_44732_Soviet_soldiers_attack_house.jpg" alt="Soldados soviéticos em Stalingrado">
+                        <figcaption>Soldados soviéticos em combate urbano · Stalingrado</figcaption>
+                    </figure>
+                    <figure class="g8">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Buchenwald_Slave_Laborers_Liberation.jpg/1280px-Buchenwald_Slave_Laborers_Liberation.jpg" alt="Libertação do campo de Buchenwald">
+                        <figcaption>Libertação do campo de Buchenwald · 1945</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section id="legado" class="block">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="kicker">Capítulo V</div>
+                    <h2>Consequências e Legado</h2>
+                    <p>O fim da guerra inaugurou uma nova ordem geopolítica, social e tecnológica que ainda molda o século XXI.</p>
+                </div>
+
+                <div class="impacts">
+                    <div class="impact reveal">
+                        <div class="ico">I</div>
+                        <h3>Criação da ONU</h3>
+                        <p>Em 1945, foi fundada a Organização das Nações Unidas, com o objetivo de mediar conflitos e promover a cooperação internacional.</p>
+                    </div>
+                    <div class="impact reveal">
+                        <div class="ico">II</div>
+                        <h3>Início da Guerra Fria</h3>
+                        <p>O mundo se polarizou entre os Estados Unidos e a União Soviética, em um equilíbrio de poder marcado por décadas de tensão.</p>
+                    </div>
+                    <div class="impact reveal">
+                        <div class="ico">III</div>
+                        <h3>Descolonização</h3>
+                        <p>A guerra acelerou os movimentos de independência na África e na Ásia, redesenhando o mapa político mundial.</p>
+                    </div>
+                    <div class="impact reveal">
+                        <div class="ico">IV</div>
+                        <h3>Direitos Humanos</h3>
+                        <p>A Declaração Universal dos Direitos Humanos (1948) emergiu como resposta às atrocidades cometidas durante o conflito.</p>
+                    </div>
+                    <div class="impact reveal">
+                        <div class="ico">V</div>
+                        <h3>Era Atômica</h3>
+                        <p>O uso da bomba atômica em Hiroshima e Nagasaki inaugurou uma nova era tecnológica e estratégica global.</p>
+                    </div>
+                    <div class="impact reveal">
+                        <div class="ico">VI</div>
+                        <h3>Reconstrução Europeia</h3>
+                        <p>O Plano Marshall e a integração econômica lançaram as bases do que viria a ser a União Europeia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="block">
+            <div class="container">
+                <div class="cta reveal">
+                    <h2>“Aqueles que não conhecem a história estão fadados a repeti-la.”</h2>
+                    <p>Continue explorando documentos, imagens e relatos sobre o conflito que mudou o mundo.</p>
+                    <a href="https://pt.wikipedia.org/wiki/Segunda_Guerra_Mundial" target="_rel" rel="noopener" class="btn btn-primary">Saiba mais sobre a Segunda Guerra</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer>
-        <p>&copy; 2026 Portfólio de História | Todos os direitos reservados</p>
+        <div class="brand">II Guerra Mundial</div>
+        <p>Portfólio educacional de história · Imagens de domínio público (Wikimedia Commons)</p>
+        <small>&copy; 2026 Portfólio de História — Todos os direitos reservados</small>
     </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 
 </body>
 </html>
